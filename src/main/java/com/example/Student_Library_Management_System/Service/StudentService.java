@@ -1,0 +1,34 @@
+package com.example.Student_Library_Management_System.Service;
+
+import com.example.Student_Library_Management_System.Enums.CardStatus;
+import com.example.Student_Library_Management_System.Model.Card;
+import com.example.Student_Library_Management_System.Model.Student;
+import com.example.Student_Library_Management_System.Repositories.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentService {
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    public String addStudent(Student student){
+
+        //card should be generated when addStudent get call
+        Card card = new Card();
+        card.setCardStatus(CardStatus.ACTIVATED);
+        card.setStudentVariableName(student);//set foreign key attributes value
+
+        //set the student attributes
+        student.setCard(card);
+
+        //if there was a unidirectional mapping : We have to save both of them
+        //but by using bidirectional mapping : child will get save automatically
+
+        studentRepository.save(student);
+
+        //by cascading effect child get save automatically
+        return "Student and Card Added Successfully";
+    }
+}
