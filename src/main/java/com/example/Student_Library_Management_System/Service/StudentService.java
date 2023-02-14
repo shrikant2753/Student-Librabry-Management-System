@@ -31,4 +31,20 @@ public class StudentService {
         //by cascading effect child get save automatically
         return "Student and Card Added Successfully";
     }
+
+    public String findByEmail(String email){
+        Student student = studentRepository.findByEmail(email);
+        return student.getName();
+    }
+
+    public String updateMobileNo(Student student){
+
+        //if we directly save the student, the attributes which are not be updating are not in Requestbody so they get
+        // set to default values so we cant do that
+
+        Student oldDataOfStudent = studentRepository.findById(student.getId()).get();
+        oldDataOfStudent.setMobNo(student.getMobNo());
+        studentRepository.save(oldDataOfStudent);
+        return "Mobile no updated Successfully";
+    }
 }
