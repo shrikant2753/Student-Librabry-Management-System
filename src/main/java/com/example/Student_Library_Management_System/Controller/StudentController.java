@@ -1,5 +1,6 @@
 package com.example.Student_Library_Management_System.Controller;
 
+import com.example.Student_Library_Management_System.DTOs.StudentUpdateMob;
 import com.example.Student_Library_Management_System.Model.Student;
 import com.example.Student_Library_Management_System.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @PutMapping("/update_mob")
-    public String updateMobileNo(@RequestBody Student student){
-        return studentService.updateMobileNo(student);
+    public String updateMobileNo(@RequestBody StudentUpdateMob studentUpdateMob){
+        return studentService.updateMobileNo(studentUpdateMob);
     }
 }

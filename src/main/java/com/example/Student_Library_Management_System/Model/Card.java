@@ -37,6 +37,11 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     private List<Book> booksIssued;
 
+    //bidirectional mapping between card and transaction
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    private List<Transaction> listOfTransactionOfCards = new ArrayList<>();
+
+
     public Card() {
         booksIssued = new ArrayList<>();
     }
@@ -87,5 +92,13 @@ public class Card {
 
     public void setBooksIssued(List<Book> booksIssued) {
         this.booksIssued = booksIssued;
+    }
+
+    public List<Transaction> getListOfTransactionOfCards() {
+        return listOfTransactionOfCards;
+    }
+
+    public void setListOfTransactionOfCards(List<Transaction> listOfTransactionOfCards) {
+        this.listOfTransactionOfCards = listOfTransactionOfCards;
     }
 }

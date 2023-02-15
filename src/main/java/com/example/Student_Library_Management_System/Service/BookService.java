@@ -1,9 +1,9 @@
 package com.example.Student_Library_Management_System.Service;
 
+import com.example.Student_Library_Management_System.DTOs.BookRequestDto;
 import com.example.Student_Library_Management_System.Model.Author;
 import com.example.Student_Library_Management_System.Model.Book;
 import com.example.Student_Library_Management_System.Repositories.AuthorRepository;
-import com.example.Student_Library_Management_System.Repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +15,21 @@ public class BookService {
     @Autowired
     AuthorRepository authorRepository;
 
-    public String addBook(Book book){
+    public String addBook(BookRequestDto bookRequestDto){
         //getting author id
-        int authorId = book.getAuthor().getId();
+        int authorId = bookRequestDto.getAuthorId();
 
         //Fetching the author entity from db
         Author author = authorRepository.findById(authorId).get();
         //add exceptional handling if author is not present
 
-
-        //basic attributes are already set by postman
-
+        //creating new book attribute
+        Book book = new Book();
+        //Setting the DTO to Entity
+        book.setName(bookRequestDto.getName());
+        book.setPages(bookRequestDto.getPages());
+        book.setGenre(bookRequestDto.getGenre());
+        book.setIssued(false);
         //setting the foreign key attributes in child class
         book.setAuthor(author);
 

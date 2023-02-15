@@ -1,5 +1,6 @@
 package com.example.Student_Library_Management_System.Service;
 
+import com.example.Student_Library_Management_System.DTOs.StudentUpdateMob;
 import com.example.Student_Library_Management_System.Enums.CardStatus;
 import com.example.Student_Library_Management_System.Model.Card;
 import com.example.Student_Library_Management_System.Model.Student;
@@ -37,14 +38,24 @@ public class StudentService {
         return student.getName();
     }
 
-    public String updateMobileNo(Student student){
+    public String updateMobileNo(StudentUpdateMob studentUpdateMob){
 
-        //if we directly save the student, the attributes which are not be updating are not in Requestbody so they get
+        /*
+        Without DTO
+        //if we directly save the student, the attributes which are not be updating are not in RequestBody so they get
         // set to default values so we cant do that
 
-        Student oldDataOfStudent = studentRepository.findById(student.getId()).get();
-        oldDataOfStudent.setMobNo(student.getMobNo());
+//        Student oldDataOfStudent = studentRepository.findById(student.getId()).get();
+//        oldDataOfStudent.setMobNo(student.getMobNo());
+//        studentRepository.save(oldDataOfStudent);
+         */
+
+        //By using DTOs
+        //Convert DTO to Entity : saved better
+        Student oldDataOfStudent = studentRepository.findById(studentUpdateMob.getId()).get();
+        oldDataOfStudent.setMobNo(studentUpdateMob.getMobileNo());
         studentRepository.save(oldDataOfStudent);
+
         return "Mobile no updated Successfully";
     }
 }
