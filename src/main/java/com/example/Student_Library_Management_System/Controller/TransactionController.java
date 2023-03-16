@@ -1,6 +1,7 @@
 package com.example.Student_Library_Management_System.Controller;
 
 import com.example.Student_Library_Management_System.DTOs.IssuedBookRequestDto;
+import com.example.Student_Library_Management_System.DTOs.ReturnBookDto;
 import com.example.Student_Library_Management_System.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,17 @@ public class TransactionController {
 
     @PostMapping("/issue-book")
     public String issuedBooks(@RequestBody IssuedBookRequestDto issuedBookRequestDto){
-        return transactionService.issueBooks(issuedBookRequestDto);
+        try {
+            return transactionService.issueBooks(issuedBookRequestDto);
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
+    }
+
+    @PostMapping("/return-book")
+    public String returnBook(@RequestBody ReturnBookDto returnBookDto){
+        return transactionService.returnBook(returnBookDto);
     }
 
 }

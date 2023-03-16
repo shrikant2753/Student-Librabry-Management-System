@@ -1,6 +1,6 @@
 package com.example.Student_Library_Management_System.Model;
 
-import com.example.Student_Library_Management_System.Enums.TransactionStatus;
+import com.example.Student_Library_Management_System.Enums.TransactionStatusEnum;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Transaction_Layer")
+@Table(name = "Transaction")
 public class Transaction {
 
     @Id
@@ -16,7 +16,7 @@ public class Transaction {
     private int id;
 
     @Enumerated(value = EnumType.STRING)
-    private TransactionStatus transactionStatus;
+    private TransactionStatusEnum transactionStatusEnum;
 
     private int fine;
 
@@ -28,7 +28,7 @@ public class Transaction {
     private String transactionId = UUID.randomUUID().toString();
 
     //mapping between transaction and books
-    //Their are many transaction for 1 book, so it ia a ONEtoMANY wrt transaction
+    //There are many transaction for 1 book, so it ia a ONEtoMANY wrt transaction
     @ManyToOne
     @JoinColumn
     private Book book;//pk of book comes here and become a foreign key
@@ -51,12 +51,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public TransactionStatus getTransactionStatus() {
-        return transactionStatus;
+    public TransactionStatusEnum getTransactionStatusEnum() {
+        return transactionStatusEnum;
     }
 
-    public void setTransactionStatus(TransactionStatus transactionStatus) {
-        this.transactionStatus = transactionStatus;
+    public void setTransactionStatus(TransactionStatusEnum transactionStatusEnum) {
+        this.transactionStatusEnum = transactionStatusEnum;
     }
 
     public int getFine() {
